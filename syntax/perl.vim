@@ -623,17 +623,17 @@ hi def link perlPostDeref		perlIdentifier
 hi def link perlFunctionPRef		perlType
 
 if !get(g:, 'perl_include_pod', 1)
-  hi def link perlPOD		perlComment
+  hi def link perlPOD		Operator
 endif
-hi def link perlShellCommand		perlString
+hi def link perlShellCommand		Operator
 hi def link perlSpecialAscii		perlSpecial
 hi def link perlSpecialDollar		perlSpecial
 hi def link perlSpecialString		perlSpecial
 hi def link perlSpecialStringU		perlSpecial
 hi def link perlSpecialMatch		perlSpecial
 hi def link perlEND			perlComment
-hi def link perlENDStart		perlEND
-hi def link perlDATA			perlComment
+hi def link perlENDStart		Operator
+hi def link perlDATA			Operator
 hi def link perlDATAStart		perlDATA
 
 " NOTE: Due to a bug in Vim (or more likely, a misunderstanding on my part),
