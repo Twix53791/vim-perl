@@ -20,18 +20,18 @@
 " The following parameters are available for tuning the
 " perl syntax highlighting, with defaults given:
 "
-" let perl_include_pod = 1
-" unlet perl_no_scope_in_variables
-" unlet perl_no_extended_vars
-" unlet perl_string_as_statement
-" unlet perl_no_sync_on_sub
-" unlet perl_no_sync_on_global_var
-" let perl_sync_dist = 100
-" unlet perl_fold
-" unlet perl_fold_blocks
-" unlet perl_nofold_packages
-" unlet perl_nofold_subs
-" unlet perl_fold_anonymous_subs
+" let g:perl_include_pod = 1
+" unlet g:perl_no_scope_in_variables
+" unlet g:perl_no_extended_vars
+" unlet g:perl_string_as_statement
+" unlet g:perl_no_sync_on_sub
+" unlet g:perl_no_sync_on_global_var
+" let g:perl_sync_dist = 100
+" unlet g:perl_fold
+" unlet g:perl_fold_blocks
+" unlet g:perl_nofold_packages
+" unlet g:perl_nofold_subs
+" unlet g:perl_fold_anonymous_subs
 " unlet perl_no_subprototype_error
 
 if exists("b:current_syntax")
@@ -44,23 +44,23 @@ set cpo&vim
 " POD starts with ^=<word> and ends with ^=cut
 
 if get(g:, 'perl_include_pod', 1)
-  " Include a while extra syntax file
-  syn include @Pod syntax/pod.vim
-  unlet b:current_syntax
-  if get(g:, 'perl_fold', 1)
-    syn region perlPOD start="^=[a-z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend fold extend
-    syn region perlPOD start="^=cut" end="^=cut" contains=perlTodo keepend fold extend
-  else
-    syn region perlPOD start="^=[a-z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend
-    syn region perlPOD start="^=cut" end="^=cut" contains=perlTodo keepend
-  endif
+    " Include a while extra syntax file
+    syn include @Pod syntax/pod.vim
+    unlet b:current_syntax
+    if get(g:, 'perl_fold', 1)
+        syn region perlPOD start="^=[a-z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend fold extend
+        syn region perlPOD start="^=cut"   end="^=cut" contains=perlTodo keepend fold extend
+    else
+        syn region perlPOD start="^=[a-z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend
+        syn region perlPOD start="^=cut"   end="^=cut" contains=perlTodo keepend
+    endif
 else
-  " Use only the bare minimum of rules
-  if get(g:, 'perl_fold', 1)
-    syn region perlPOD start="^=[a-z]" end="^=cut" fold
-  else
-    syn region perlPOD start="^=[a-z]" end="^=cut"
-  endif
+    " Use only the bare minimum of rules
+    if get(g:, 'perl_fold', 1)
+        syn region perlPOD start="^=[a-zA-Z]" end="^=cut" fold
+    else
+        syn region perlPOD start="^=[a-zA-Z]" end="^=cut"
+    endif
 endif
 
 
