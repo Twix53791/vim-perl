@@ -212,6 +212,7 @@ syn match  perlSpecialMatch	"(?[impsx]*\%(-[imsx]\+\)\=)" contained
 syn match  perlSpecialMatch	"(?\%([-+]\=\d\+\|R\))" contained
 syn match  perlSpecialMatch	"(?\%(&\|P[>=]\)\h\w*)" contained
 syn match  perlSpecialMatch	"(\*\%(\%(PRUNE\|SKIP\|THEN\)\%(:[^)]*\)\=\|\%(MARK\|\):[^)]*\|COMMIT\|F\%(AIL\)\=\|ACCEPT\))" contained
+syn match  perlMultiModifiers	"[+*.?]" contained
 
 " Possible errors
 "
@@ -228,9 +229,9 @@ syn cluster perlInterpDQ	contains=perlSpecialString,perlVarPlain,perlVarNotInMat
 " These items are interpolated inside '' strings and similar constructs.
 syn cluster perlInterpSQ	contains=perlSpecialStringU,perlSpecialStringU2
 " These items are interpolated inside m// matches and s/// substitutions.
-syn cluster perlInterpSlash	contains=perlSpecialString,perlSpecialMatch,perlVarPlain,perlVarBlock
+syn cluster perlInterpSlash	contains=perlSpecialString,perlSpecialMatch,perlVarPlain,perlVarBlock,perlCaptureGroup,perlNonCaptureGroup,perlPatSep,perlMultiModifiers
 " These items are interpolated inside m## matches and s### substitutions.
-syn cluster perlInterpMatch	contains=@perlInterpSlash,perlVarSlash
+syn cluster perlInterpMatch	contains=@perlInterpSlash,perlVarSlash,perlCaptureGroup,perlNonCaptureGroup,perlPatSep
 
 " Shell commands
 syn region  perlShellCommand	matchgroup=perlMatchStartEnd start="`" end="`" contains=@perlInterpDQ keepend
