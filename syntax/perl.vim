@@ -195,7 +195,9 @@ syn match  perlFiledescRead	"<\h\w*>"
 syn match  perlFiledescStatementComma	"(\=\s*\<\u\w*\>\s*,"me=e-1 transparent contained contains=perlFiledescStatement
 syn match  perlFiledescStatementNocomma "(\=\s*\<\u\w*\>\s*[^, \t]"me=e-1 transparent contained contains=perlFiledescStatement
 
-syn match  perlFiledescStatement	"\<\u\w*\>" contained
+syn region perlCaptureGroup 		matchgroup=MatchGroupStartEnd	start="(\([?!]\)\@!"         end=")" contained transparent
+syn region perlNonCaptureGroup 		matchgroup=MatchGroupStartEnd2	start="(?\%([#:=!]\|<[=!]\)" end=")" contained transparent
+syn match  perlPatSep			"|" contained
 
 " Special characters in strings and matches
 syn match  perlSpecialString	"\\\%(\o\{1,3}\|x\%({\x\+}\|\x\{1,2}\)\|c.\|[^cx]\)" contained extend
