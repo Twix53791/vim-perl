@@ -558,7 +558,7 @@ hi def link perlSubAttribute		PreProc
 hi def link perlComment			Comment
 hi def link perlTodo			Todo
 if get(g:, 'perl_string_as_statement', 0)
-  hi def link perlStringStartEnd	perlStatement
+  hi def link perlStringStartEnd	Operator
 else
   hi def link perlStringStartEnd	perlString
 endif
