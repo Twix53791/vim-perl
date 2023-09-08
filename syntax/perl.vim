@@ -48,10 +48,10 @@ if get(g:, 'perl_include_pod', 1)
     syn include @Pod syntax/pod.vim
     unlet b:current_syntax
     if get(g:, 'perl_fold', 1)
-        syn region perlPOD start="^=[a-z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend fold extend
+        syn region perlPOD start="^=[a-zA-Z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend fold extend
         syn region perlPOD start="^=cut"   end="^=cut" contains=perlTodo keepend fold extend
     else
-        syn region perlPOD start="^=[a-z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend
+        syn region perlPOD start="^=[a-zA-Z]" end="^=cut" contains=@Pod,@Spell,perlTodo keepend
         syn region perlPOD start="^=cut"   end="^=cut" contains=perlTodo keepend
     endif
 else
