@@ -94,15 +94,32 @@ syn match perlStatementFiles		"\<\%(ch\%(dir\|mod\|own\|root\)\|glob\|link\|mkdi
 syn match perlStatementFiles		"-[rwxoRWXOezsfdlpSbctugkTBMAC]\>"
 syn match perlStatementFlow		"\<\%(caller\|die\|dump\|eval\|exit\|wantarray\|evalbytes\)\>"
 syn match perlStatementInclude		"\<\%(require\|import\|unimport\)\>"
-syn match perlStatementInclude		"\<\%(use\|no\)\s\+\%(\%(attributes\|attrs\|autodie\%(::\%(exception\%(::system\)\=\|hints\|skip\)\)\=\|autouse\|parent\|base\|big\%(int\|num\|rat\)\|blib\|bytes\|charnames\|constant\|deprecate\|diagnostics\|encoding\%(::warnings\)\=\|experimental\|feature\|fields\|filetest\|if\|integer\|less\|lib\|locale\|mro\|ok\|open\|ops\|overload\|overloading\|re\|sigtrap\|sort\|strict\|subs\|threads\%(::shared\)\=\|utf8\|vars\|version\|vmsish\|warnings\%(::register\)\=\)\>\)\="
-syn match perlStatementProc		"\<\%(alarm\|exec\|fork\|get\%(pgrp\|ppid\|priority\)\|kill\|pipe\|set\%(pgrp\|priority\)\|sleep\|system\|times\|wait\%(pid\)\=\)\>"
-syn match perlStatementSocket		"\<\%(accept\|bind\|connect\|get\%(peername\|sock\%(name\|opt\)\)\|listen\|recv\|send\|setsockopt\|shutdown\|socket\%(pair\)\=\)\>"
-syn match perlStatementIPC		"\<\%(msg\%(ctl\|get\|rcv\|snd\)\|sem\%(ctl\|get\|op\)\|shm\%(ctl\|get\|read\|write\)\)\>"
-syn match perlStatementNetwork		"\<\%(\%(end\|[gs]et\)\%(host\|net\|proto\|serv\)ent\|get\%(\%(host\|net\)by\%(addr\|name\)\|protoby\%(name\|number\)\|servby\%(name\|port\)\)\)\>"
-syn match perlStatementPword		"\<\%(get\%(pw\%(uid\|nam\)\|gr\%(gid\|nam\)\|login\)\)\|\%(end\|[gs]et\)\%(pw\|gr\)ent\>"
-syn match perlStatementTime		"\<\%(gmtime\|localtime\|time\)\>"
+syn match perlConditional		"\<else\%(\%(\_s\*if\>\)\|\>\)" contains=perlElseIfError skipwhite skipnl skipempty
+syn match perlLabel			"^\s*\h\w*\s*::\@!\%(\<v\d\+\s*:\)\@<!"
 
-syn match perlStatementMisc		"\<\%(warn\|format\|formline\|reset\|scalar\|prototype\|lock\|tied\=\|untie\)\>"
+syn keyword perlConditional		if elsif unless given when default
+syn keyword perlRepeat			while for foreach do until continue
+syn keyword perlOperator		defined undef eq ne ge gt le lt cmp not and or xor not bless ref do 
+syn keyword perlStatementStorage	my our local state
+syn keyword perlStatementControl	return last next redo goto break 
+syn keyword perlStatementScalar		chop chomp chr crypt index rindex lc lcfirst length ord pack sprintf substr fc uc ucfirst print printf say
+syn keyword perlStatementRegexp		pos quotemeta split study 
+syn keyword perlStatementNumeric	abs atan2 cos exp hex int log oct rand sin sqrt srand 
+syn keyword perlStatementList		splice unshift shift push pop join reverse grep map sort unpack
+syn keyword perlStatementHash		delete each exists keys values 
+syn keyword perlStatementIOfunc		syscall dbmopen dbmclose 
+syn keyword perlStatementVector		vec
+syn keyword perlStatementFiles		chdir chmod chown chroot glob link mkdir readlink rename rmdir symlink umask unlink utime
+syn keyword perlStatementFlow		caller die dump eval exit wantarray evalbytes 
+syn keyword perlStatementInclude	require import unimport 
+syn keyword perlStatementProc		alarm exec fork getpgrp getppid getpriority kill pipe setpgrp setpriority sleep system times wait waitpid
+syn keyword perlStatementSocket		accept bind connect getpeername getsockname getsockopt listen recv send setsockopt shutdown socket socketpair
+syn keyword perlStatementIPC		msgctl msgget msgrcv msgsnd semctl semget semop shmctl shmget shmread shmwrite
+syn keyword perlStatementNetwork	sethostent endnetent endprotoent endservent sethostent setnetent setprotoent setservent gethostent getnetent getprotoent getservent
+syn keyword perlStatementNetwork	gethostbyaddr gethostbyname getnetbyaddr getnetbyname getprotobyname getprotobynumber getservbyname getservbyport
+syn keyword perlStatementPword		getpwuid getpwnam getgrgid getgrnam getlogin endpwent endgrent getpwent getgrent setpwent setgrent
+syn keyword perlStatementTime		gmtime localtime time 
+syn keyword perlStatementMisc		warn format formline reset scalar prototype lock tie tied untie 
 
 syn keyword perlTodo			TODO TODO: TBD TBD: FIXME FIXME: XXX XXX: NOTE NOTE: contained
 
@@ -141,13 +158,13 @@ syn match  perlPackageRef	 "[$@#%*&]\%(\%(::\|'\)\=\I\i*\%(\%(::\|'\)\I\i*\)*\)\
 " just set the variable "perl_no_extended_vars"...
 
 if !get(g:, 'perl_no_scope_in_variables', 0)
-  syn match  perlVarPlain       "\%([@$]\|\$#\)\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" contains=perlPackageRef nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref
-  syn match  perlVarPlain2                   "%\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" contains=perlPackageRef nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref
-  syn match  perlFunctionName                "&\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" contains=perlPackageRef nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref
+  syn match  perlVarPlain       "\%([@$]\|\$#\)\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" contains=perlPackageRef nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref,perlSpecPostDeref
+  syn match  perlVarPlain2                   "%\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" contains=perlPackageRef nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref,perlSpecPostDeref
+  syn match  perlFunctionName                "&\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" contains=perlPackageRef nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref,perlSpecPostDeref
 else
-  syn match  perlVarPlain       "\%([@$]\|\$#\)\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref
-  syn match  perlVarPlain2                   "%\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref
-  syn match  perlFunctionName                "&\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref
+  syn match  perlVarPlain       "\%([@$]\|\$#\)\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref,perlSpecPostDeref
+  syn match  perlVarPlain2                   "%\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref,perlSpecPostDeref
+  syn match  perlFunctionName                "&\$*\%(\I\i*\)\=\%(\%(::\|'\)\I\i*\)*\%(::\|\i\@<=\)" nextgroup=perlVarMember,perlVarSimpleMember,perlPostDeref,perlSpecPostDeref
 endif
 
 syn match  perlVarPlain2	 "%[-+]"
